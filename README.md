@@ -1,49 +1,87 @@
-# Online Job Portal - Enhanced UI & Features
+# Online Job Portal — Docker & Jenkins CI/CD
 
-This version keeps the original Java/JSP/Servlet/MySQL job portal workflow and adds a more polished, practical interface plus lightweight candidate features.
+A Java-based Online Job Portal containerized with Docker and deployed through an automated Jenkins CI/CD pipeline.
 
-## Existing workflow retained
-- JSP + Bootstrap frontend
-- Java Servlets
-- MySQL database
-- Tomcat 7 Maven plugin
-- Admin job posting/editing/deletion
-- User registration/login/profile editing
-- Location/category job search
+The primary focus of this project is the **DevOps implementation**: containerization, multi-container orchestration, CI/CD automation, GitHub integration, deployment verification, and Docker resource management.
 
-## Added
-- Professional responsive navigation and page styling
-- Improved landing page, job cards, forms, job details, and footer
-- User dashboard
-- Save/unsave jobs
-- Apply to active jobs
-- Application history and status display
-- Admin dashboard with user/job/application counts
-- Admin application-status management
-- About and Contact pages
-- Automatic creation of `saved_jobs` and `applications` tables on first database connection
-- Corrected job-search result field mapping
+---
 
-## Run locally
-1. Start MySQL Server.
-2. Open the project in VS Code.
-3. Make sure `DBConnect.java` contains your local MySQL username/password.
-4. From the folder containing `pom.xml`, run:
+# Docker and Jenkins Highlights
 
-   `mvn clean install`
+- Containerized a Java/Tomcat web application using Docker
+- Created a custom Docker image using a Dockerfile
+- Containerized and configured MySQL
+- Used Docker Compose to orchestrate the application and database
+- Created a dedicated Docker network for container-to-container communication
+- Configured environment-based database credentials
+- Implemented a Jenkins Declarative Pipeline
+- Integrated Jenkins with GitHub
+- Configured a GitHub Webhook for automatic pipeline triggering
+- Automated Docker image building and deployment
+- Added post-deployment application health checks
+- Added Docker image and build-cache cleanup
+- Troubleshot Docker networking, port conflicts, database connectivity, and Jenkins pipeline issues
 
-5. Start Tomcat:
+---
 
-   `mvn tomcat7:run`
+## Technology Stack
 
-6. Open:
+### Application
 
-   `http://localhost:8080/Job_Portal`
+- Java
+- JSP
+- Servlets
+- MySQL
+- Apache Tomcat
+- Maven
 
-The first application connection automatically creates the two additional tables if they do not already exist.
+### DevOps
 
-## Admin login
-- Email: `admin@gmail.com`
-- Password: `admin@123`
+- Git & GitHub
+- Docker
+- Docker Compose
+- Jenkins
+- Linux
+- Shell scripting
+- GitHub Webhooks
 
-For a real deployment, replace the hard-coded admin credentials and plaintext password storage with proper authentication and password hashing.
+---
+
+## Architecture
+
+```text
+                         GitHub
+                            │
+                            │ git push
+                            ▼
+                    GitHub Webhook
+                            │
+                            ▼
+                        Jenkins
+                            │
+                ┌───────────┴───────────┐
+                │                       │
+            Checkout              Build Docker
+                │                   Image
+                │                       │
+                └───────────┬───────────┘
+                            ▼
+                          Test
+                            │
+                            ▼
+                    Docker Compose
+                            │
+                 ┌──────────┴──────────┐
+                 │                     │
+                 ▼                     ▼
+          Job Portal App            MySQL
+          Tomcat Container        Container
+                 │                     │
+                 └────── Docker ──────┘
+                        Network
+                            │
+                            ▼
+                     Health Check
+                            │
+                            ▼
+                    Docker Cleanup
