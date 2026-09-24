@@ -54,3 +54,12 @@ pipeline {
         }
     }
 }
+
+stage('Docker Cleanup') {
+    steps {
+        sh '''
+            docker image prune -f
+            docker builder prune -f
+        '''
+    }
+}
