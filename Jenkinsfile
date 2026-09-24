@@ -37,5 +37,20 @@ pipeline {
                 }
             }
         }
+
+        stage('Health Check') {
+            steps {
+                sh '''
+                    echo "Waiting for application to start..."
+                    sleep 15
+
+                    curl --fail --silent --show-error \
+                    http://localhost:8081/Job_Portal/ \
+                    > /dev/null
+
+                    echo "Application is running successfully."
+                '''
+            }
+        }
     }
 }
