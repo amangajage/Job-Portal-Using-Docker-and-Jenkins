@@ -12,8 +12,8 @@ public class DBConnect {
             if (Conn == null || Conn.isClosed()) {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/job_portal?autoReconnect=true&useSSL=false",
-                    "root", "password");
+                    "jdbc:mysql://job-portal-mysql:3306/job_portal?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true",
+                    "root", System.getenv("MYSQL_ROOT_PASSWORD"));
             }
             if (!extraTablesReady) {
                 initializePortalTables();
