@@ -11,13 +11,13 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t job-portal .'
+                sh 'docker build -t job-portal .'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'docker images job-portal'
+                sh 'docker images job-portal'
             }
         }
     }
