@@ -86,30 +86,3 @@ The primary focus of this project is the **DevOps implementation**: containeriza
                             ▼
                     Docker Cleanup
 
-##Docker Implementation
-Dockerfile
-
-The application is packaged into a Docker image containing the required Java/Tomcat runtime.
-
-The Dockerfile:
-
-Uses a Tomcat base image
-Copies the generated application WAR file into Tomcat
-Exposes port 8080
-Starts Tomcat when the container launches
-
-The application runs on port 8080 inside the container.
-
-##Docker Compose
-
-Docker Compose is used to run the application and MySQL together.
-
-The Compose configuration provides:
-
-Java/Tomcat application container
-MySQL 8 container
-Dedicated Docker network
-Database initialization
-Environment variable configuration
-Container dependency configuration
-Port mapping
