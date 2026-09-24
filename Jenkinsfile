@@ -31,7 +31,9 @@ pipeline {
                 ]) {
                     sh '''
                         export MYSQL_DATABASE=job_portal
+
                         docker compose down || true
+
                         docker compose up -d --build
                     '''
                 }
@@ -52,14 +54,18 @@ pipeline {
                 '''
             }
         }
-    }
-}
 
-stage('Docker Cleanup') {
-    steps {
-        sh '''
-            docker image prune -f
-            docker builder prune -f
-        '''
+        stage('Docker Cleanup') {
+            steps {
+                sh '''
+                    echo "Cleaning unused Docker resources..."
+
+                    docker image prune -f
+                    docker builder prune -f
+
+                    echo "Docker cleanup completed."
+                '''
+            }
+        }
     }
 }
