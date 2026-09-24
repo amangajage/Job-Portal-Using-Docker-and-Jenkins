@@ -26,15 +26,6 @@ The primary focus of this project is the **DevOps implementation**: containeriza
 
 ## Technology Stack
 
-### Application
-
-- Java
-- JSP
-- Servlets
-- MySQL
-- Apache Tomcat
-- Maven
-
 ### DevOps
 
 - Git & GitHub
@@ -44,6 +35,77 @@ The primary focus of this project is the **DevOps implementation**: containeriza
 - Linux
 - Shell scripting
 - GitHub Webhooks
+
+## Docker Implementation
+### Dockerfile
+
+The application is packaged into a Docker image containing the required Java/Tomcat runtime.
+
+The Dockerfile:
+
+1. Uses a Tomcat base image
+2. Copies the generated application WAR file into Tomcat
+3. Exposes port 8080
+4. Starts Tomcat when the container launches
+
+The application runs on port 8080 inside the container.
+
+### Docker Compose
+
+Docker Compose is used to run the application and MySQL together.
+
+The Compose configuration provides:
+
+1. Java/Tomcat application container
+2. MySQL 8 container
+3. Dedicated Docker network
+4. Database initialization
+5. Environment variable configuration
+6. Container dependency configuration
+7. Port mapping
+
+## Jenkins CI/CD Pipeline
+
+The project uses a Jenkins Declarative Pipeline to automate the build and deployment process.
+## Pipeline Stages
+### 1. Checkout
+
+Jenkins retrieves the latest source code from GitHub.
+
+GitHub → Jenkins Workspace
+### 2. Build Docker Image
+
+Jenkins builds the Docker image from the Dockerfile.
+
+docker build -t job-portal .
+### 3. Test
+
+The pipeline verifies that the Docker image was successfully created.
+
+### 4. Deploy
+
+Docker Compose is used to deploy the application and MySQL containers.
+
+docker compose up -d --build
+### 5. Health Check
+
+After deployment, Jenkins waits for the application to start and verifies that it responds over HTTP.
+
+
+This prevents Jenkins from treating a deployment as successful when the container starts but the application is not responding.
+
+### 6. Docker Cleanup
+
+Unused Docker images and build cache are removed:
+
+docker image prune -f
+docker builder prune -f
+
+This helps control Docker disk usage on the deployment server.
+
+## GitHub Webhook Integration
+
+A GitHub Webhook connects the GitHub repository to Jenkins.
 
 ---
 
