@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: job-portal-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./database/job_portal.sql:/docker-entrypoint-initdb.d/job_portal.sql
+    networks:
+      - job-portal-network
+
+  app:
+    build: .
+    container_name: job-portal-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - job-portal-network
+
+networks:
+  job-portal-network:
+    driver: bridge
