@@ -18,7 +18,7 @@
     <section class="jp-hero">
         <div class="container"><div class="jp-hero-card">
             <div class="section-kicker">Online Job Portal</div>
-            <h1>Find work that fits your next move.</h1>
+            <h1>Find work that fits your Goal.</h1>
             <p>Search available roles by location and category, review job details, save interesting openings, and keep track of your applications.</p>
             <div class="hero-actions">
                 <c:choose>
