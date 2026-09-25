@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Job Portal | Find Your Next Opportunity</title>
+    <title>Job Portal live | Find Your Next Opportunity</title>
     <%@include file="all_component/all_css.jsp"%>
 </head>
 <body>
